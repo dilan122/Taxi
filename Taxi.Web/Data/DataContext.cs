@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 using Taxi.Web.Data.Entities;
 
 namespace Taxi.Web.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<UserEntity>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -14,6 +16,8 @@ namespace Taxi.Web.Data
         public DbSet<TaxiEntity> Trips { get; set; }
 
         public DbSet<TaxiEntity> TripsDetails { get; set; }
+
+        public DbSet<UserGroupEntity> UserGroups { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
