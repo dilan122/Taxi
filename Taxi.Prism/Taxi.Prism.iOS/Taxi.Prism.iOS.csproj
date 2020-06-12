@@ -208,5 +208,29 @@
       <Name>Taxi.Prism</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\camion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\camioneta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_airport_shuttle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_people_outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\taxi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_exit_to_app.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\ic_account_circle.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
