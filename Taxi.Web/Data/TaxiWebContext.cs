@@ -15,5 +15,6 @@ namespace Taxi.Web.Data
         }
 
         public DbSet<Taxi.Web.Data.Entities.TaxiEntity> TaxiEntity { get; set; }
+        public object Taxis { get; internal set; }
     }
 }
