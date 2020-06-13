@@ -6,10 +6,16 @@ using Plugin.Permissions;
 using Prism;
 using Prism.Ioc;
 using Syncfusion.SfBusyIndicator.XForms.Droid;
+using Syncfusion.SfRating.XForms.Droid;
 
 namespace Taxi.Prism.Droid
 {
-    [Activity(Label = "Taxi.Prism", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(
+     Label = "Taxi Líbano",
+     Icon = "@mipmap/ic_launcher",
+     Theme = "@style/MainTheme",
+     MainLauncher = false,
+     ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -22,6 +28,7 @@ namespace Taxi.Prism.Droid
             CrossCurrentActivity.Current.Init(this, bundle);
             global::Xamarin.Forms.Forms.Init(this, bundle);
             new SfBusyIndicatorRenderer();
+            new SfRatingRenderer();
             Xamarin.FormsMaps.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
         }
