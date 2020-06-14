@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 using Taxi.Web.Data.Entities;
 using Taxi.Web.Helpers;
 using Taxi.Web.Models;
+using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Taxi.Web.Controllers
 {
@@ -14,16 +19,60 @@ namespace Taxi.Web.Controllers
         private readonly IUserHelper _userHelper;
         private readonly IImageHelper _imageHelper;
         private readonly ICombosHelper _combosHelper;
+        private readonly IConfiguration _configuration;
 
         public AccountController(IUserHelper userHelper,
                 IImageHelper imageHelper,
-                ICombosHelper combosHelper
+                ICombosHelper combosHelper,
+                IConfiguration configuration
 )
         {
             _userHelper = userHelper;
             _imageHelper = imageHelper;
             _combosHelper = combosHelper;
+            _configuration = configuration;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.GetUserAsync(model.Username);
+                if (user != null)
+                {
+                    var result = await _userHelper.ValidatePasswordAsync(user, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        var claims = new[]
+                        {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
+                        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                        var token = new JwtSecurityToken(
+                            _configuration["Tokens:Issuer"],
+                            _configuration["Tokens:Audience"],
+                            claims,
+                            expires: DateTime.UtcNow.AddDays(15),
+                            signingCredentials: credentials);
+                        var results = new
+                        {
+                            token = new JwtSecurityTokenHandler().WriteToken(token),
+                            expiration = token.ValidTo
+                        };
+
+                        return Created(string.Empty, results);
+                    }
+                }
+            }
+
+            return BadRequest();
+        }
+
 
         public IActionResult ChangePassword()
         {
@@ -35,7 +84,7 @@ namespace Taxi.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userHelper.GetUserByEmailAsync(User.Identity.Name);
+                var user = await _userHelper.GetUserAsync(User.Identity.Name);
                 if (user != null)
                 {
                     var result = await _userHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
@@ -60,7 +109,7 @@ namespace Taxi.Web.Controllers
 
         public async Task<IActionResult> ChangeUser()
         {
-            UserEntity user = await _userHelper.GetUserByEmailAsync(User.Identity.Name);
+            UserEntity user = await _userHelper.GetUserAsync(User.Identity.Name);
             
             EditUserViewModel model = new EditUserViewModel
             {
@@ -88,7 +137,7 @@ namespace Taxi.Web.Controllers
                     path = await _imageHelper.UploadImageAsync(model.PictureFile, "Users");
                 }
 
-                UserEntity user = await _userHelper.GetUserByEmailAsync(User.Identity.Name);
+                UserEntity user = await _userHelper.GetUserAsync(User.Identity.Name);
 
                 user.Document = model.Document;
                 user.FirstName = model.FirstName;
