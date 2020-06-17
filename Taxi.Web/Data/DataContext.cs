@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
 using Taxi.Web.Data.Entities;
 
 namespace Taxi.Web.Data
@@ -13,7 +12,7 @@ namespace Taxi.Web.Data
 
         public DbSet<TaxiEntity> Taxis { get; set; }
 
-        public DbSet<TaxiEntity> Trips { get; set; }
+        public DbSet<TripEntity> Trips { get; set; }
 
         public DbSet<TaxiEntity> TripsDetails { get; set; }
 

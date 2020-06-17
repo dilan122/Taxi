@@ -8,6 +8,8 @@ namespace Taxi.Web.Data.Entities
 {
     public class TaxiEntity
     {
+        internal object TripDetails;
+
         public int Id { get; set; }
 
         [StringLength(6, MinimumLength = 6, ErrorMessage = "The {0} field must have {1} characters.")]
