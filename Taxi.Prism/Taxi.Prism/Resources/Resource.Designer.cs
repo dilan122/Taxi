@@ -151,7 +151,7 @@ namespace Taxi.Prism.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Log in.
+        ///   Busca una cadena traducida similar a Login.
         /// </summary>
         public static string LogIn {
             get {
@@ -165,6 +165,15 @@ namespace Taxi.Prism.Resources {
         public static string LoginError {
             get {
                 return ResourceManager.GetString("LoginError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Logout.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
             }
         }
         

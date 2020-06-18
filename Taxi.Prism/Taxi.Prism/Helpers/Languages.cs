@@ -15,7 +15,10 @@ namespace Taxi.Prism.Helpers
             DependencyService.Get<ILocalize>().SetLocale(ci);
         }
 
+
         public static string Culture { get; set; }
+
+        public static string Logout => Resource.Logout;
 
         public static string Accept => Resource.Accept;
 
@@ -61,7 +64,7 @@ namespace Taxi.Prism.Helpers
 
         public static string ReportAnIncident => Resource.ReportAnIncident;
 
-        public static string LogIn => Resource.LogIn;
+        public static string Login => Resource.LogIn;
 
         public static string Email => Resource.Email;
 

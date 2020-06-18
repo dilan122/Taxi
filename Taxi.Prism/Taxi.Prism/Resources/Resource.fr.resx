@@ -210,4 +210,7 @@
   <data name="LoginError" xml:space="preserve">
     <value>Email o mot de passe incorrecto!</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Déconnexion</value>
+  </data>
 </root>
