@@ -10,6 +10,7 @@
 
             <!-- Parameters -->
             <x:String x:Key="UrlAPI">https://taxiwebdilan23.azurewebsites.net/</x:String>
+            <x:String x:Key="UrlNoImage">https://taxiwebdilan23.azurewebsites.net/images/camera1.jpg</x:String>
 
             <!-- Colors -->
             <Color x:Key="ColorBackgroud">#FFFF05</Color>
@@ -33,6 +34,10 @@
             </Style>
 
             <Style TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorFontInverse}" />
+            </Style>
+            
+            <Style TargetType="Picker">
                 <Setter Property="BackgroundColor" Value="{StaticResource ColorFontInverse}" />
             </Style>
 
